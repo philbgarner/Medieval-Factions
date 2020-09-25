@@ -2,7 +2,7 @@ package factionsystem.Objects;
 
 import java.util.ArrayList;
 
-public class QuestGoalCondition {
+public class QuestNodeCondition {
 	
 	public enum LogicalComparison { And, Or } 
 
