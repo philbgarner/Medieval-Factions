@@ -3,17 +3,36 @@ package factionsystem.Objects;
 import java.util.ArrayList;
 import java.util.UUID;
 
+import org.bukkit.ChatColor;
+import org.bukkit.entity.Player;
+
 public class QuestNode {
 
 	public UUID uuid = UUID.randomUUID();
+	public String name = "";
+	public String description = "";
 	public QuestNode parentNode = null;
 	public ArrayList<QuestNodeCondition> conditions = new ArrayList<QuestNodeCondition>();
 	
-	public boolean isNodeCompleted()
+	public void ProcessNode(Player player)
 	{
-		// TODO: Run through quest node conditions and return the result.
-		boolean cond = false;
-		return cond;
+		boolean result = false;
+		for (QuestNodeCondition condition : conditions)
+		{
+			if (condition.goalType.equals(QuestNodeCondition.LogicalComparison.And))
+			{
+				result = result && condition.Evaluate(player);
+			}
+			else
+			{
+				result = result || condition.Evaluate(player);
+			}
+			
+			if (result)
+			{
+				player.sendMessage(ChatColor.GREEN + "You have completed " + name + ", now starting " + condition.nextNode.name);
+			}
+		}
 	}
 	
 }
