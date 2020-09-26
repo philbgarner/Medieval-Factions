@@ -20,7 +20,7 @@ public class QuestNode {
 	
 	private Main main;
 	
-	public void ProcessNode(Player player)
+	public boolean ProcessNode(Player player)
 	{
 		boolean result = false;
 		for (QuestNodeCondition condition : conditions)
@@ -42,13 +42,16 @@ public class QuestNode {
 			{
 				player.sendMessage(ChatColor.GREEN + "You have completed " + name + ", now starting " + nextNode.name);
 				rec.activeQuestNode.add(nextNode.uuid);
+				return true;
 			}
 			else
 			{
 				// TODO: Quest complete!
 				player.sendMessage(ChatColor.GREEN + "You have completed the quest!");
+				return true;
 			}
 		}
+		return false;
 	}
 	
 }
