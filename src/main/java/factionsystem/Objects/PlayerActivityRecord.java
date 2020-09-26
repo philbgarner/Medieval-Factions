@@ -27,8 +27,21 @@ public class PlayerActivityRecord {
     private int powerLost = 0;
     private ZonedDateTime lastLogout = ZonedDateTime.now();
     private Main main;
-    
     public ArrayList<UUID> activeQuestNode = new ArrayList<UUID>();
+    
+    public int getQuestNodeIndex(UUID uuid)
+    {
+    	int c = 0;
+    	for (UUID nodeId : activeQuestNode)
+    	{
+    		if (uuid.equals(nodeId))
+    		{
+    			return c;
+    		}
+    		c++;
+    	}
+    	return -1;
+    }
     
     public PlayerActivityRecord(UUID uuid, int logins, Main main)
     {
