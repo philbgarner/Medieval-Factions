@@ -13,7 +13,7 @@ public class QuestNodeAction {
 	public String command = "";
 	public Type type = null; 
 	private Main main;
-	public enum Type { Command, GiveCoins, TakeCoins, AddToken, RemoveToken }
+	public enum Type { Command, GiveCoins, TakeCoins, AddQuestToken, RemoveQuestToken }
 	
 	public QuestNodeAction(Main plugin, Type nodeType)
 	{

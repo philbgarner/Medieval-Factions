@@ -21,7 +21,7 @@ public class QuestNode {
 		boolean result = false;
 		for (QuestNodeCondition condition : conditions)
 		{
-			if (condition.goalType.equals(QuestNodeCondition.LogicalComparison.And))
+			if (condition.comparison.equals(QuestNodeCondition.LogicalComparison.And))
 			{
 				result = result && condition.Evaluate(player);
 			}

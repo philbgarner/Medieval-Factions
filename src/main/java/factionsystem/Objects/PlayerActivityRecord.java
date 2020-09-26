@@ -1,5 +1,6 @@
 package factionsystem.Objects;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -26,6 +27,8 @@ public class PlayerActivityRecord {
     private int powerLost = 0;
     private ZonedDateTime lastLogout = ZonedDateTime.now();
     private Main main;
+    
+    public ArrayList<UUID> activeQuests = new ArrayList<UUID>();
     
     public PlayerActivityRecord(UUID uuid, int logins, Main main)
     {
