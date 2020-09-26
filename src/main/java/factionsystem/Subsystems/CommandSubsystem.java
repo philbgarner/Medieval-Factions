@@ -74,6 +74,19 @@ public class CommandSubsystem {
                         return false;
                     }
                 }
+                
+                // quest command
+                if  (args[0].equalsIgnoreCase("quest")) {
+                    if (sender.hasPermission("mf.quest") || sender.hasPermission("mf.default")) {
+                        QuestCommand command = new QuestCommand(main);
+                        command.handleQuest(sender, args);
+                        return true;
+                    }
+                    else {
+                        sender.sendMessage(ChatColor.RED + "Sorry! You need the following permission to use this command: 'mf.quest'");
+                        return false;
+                    }
+                }
 
                 // disband command
                 if (args[0].equalsIgnoreCase("disband")) {
