@@ -6,15 +6,19 @@ import java.util.UUID;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
+import factionsystem.Main;
+import factionsystem.Subsystems.UtilitySubsystem;
+
 public class QuestNode {
 
 	public UUID uuid = UUID.randomUUID();
 	public String name = "";
 	public String description = "";
-	public QuestNode parentNode = null;
 	public QuestNode nextNode = null;
 	public ArrayList<QuestNodeCondition> conditions = new ArrayList<QuestNodeCondition>();
 	public ArrayList<QuestNodeGoalReward> reward = new ArrayList<QuestNodeGoalReward>();
+	
+	private Main main;
 	
 	public void ProcessNode(Player player)
 	{
@@ -32,7 +36,18 @@ public class QuestNode {
 		}
 		if (result)
 		{
-			player.sendMessage(ChatColor.GREEN + "You have completed " + name + ", now starting " + nextNode.name);
+			PlayerActivityRecord rec = UtilitySubsystem.getPlayerActivityRecord(player.getUniqueId(), main.playerActivityRecords);
+			rec.activeQuestNode.remove(uuid);
+			if (nextNode != null)
+			{
+				player.sendMessage(ChatColor.GREEN + "You have completed " + name + ", now starting " + nextNode.name);
+				rec.activeQuestNode.add(nextNode.uuid);
+			}
+			else
+			{
+				// TODO: Quest complete!
+				player.sendMessage(ChatColor.GREEN + "You have completed the quest!");
+			}
 		}
 	}
 	

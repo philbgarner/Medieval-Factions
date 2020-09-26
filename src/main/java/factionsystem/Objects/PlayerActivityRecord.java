@@ -28,7 +28,7 @@ public class PlayerActivityRecord {
     private ZonedDateTime lastLogout = ZonedDateTime.now();
     private Main main;
     
-    public ArrayList<UUID> activeQuests = new ArrayList<UUID>();
+    public ArrayList<UUID> activeQuestNode = new ArrayList<UUID>();
     
     public PlayerActivityRecord(UUID uuid, int logins, Main main)
     {
