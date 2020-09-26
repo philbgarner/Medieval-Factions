@@ -16,7 +16,7 @@ public class QuestNode {
 	public String description = "";
 	public QuestNode nextNode = null;
 	public ArrayList<QuestNodeCondition> conditions = new ArrayList<QuestNodeCondition>();
-	public ArrayList<QuestNodeGoalReward> reward = new ArrayList<QuestNodeGoalReward>();
+	public ArrayList<QuestNodeAction> actions = new ArrayList<QuestNodeAction>();
 	
 	private Main main;
 	
@@ -40,6 +40,10 @@ public class QuestNode {
 			rec.activeQuestNode.remove(uuid);
 			if (nextNode != null)
 			{
+				for (QuestNodeAction action : actions)
+				{
+					action.Execute(player);
+				}
 				player.sendMessage(ChatColor.GREEN + "You have completed " + name + ", now starting " + nextNode.name);
 				rec.activeQuestNode.add(nextNode.uuid);
 				return true;
@@ -47,6 +51,10 @@ public class QuestNode {
 			else
 			{
 				// TODO: Quest complete!
+				for (QuestNodeAction action : actions)
+				{
+					action.Execute(player);
+				}
 				player.sendMessage(ChatColor.GREEN + "You have completed the quest!");
 				return true;
 			}
