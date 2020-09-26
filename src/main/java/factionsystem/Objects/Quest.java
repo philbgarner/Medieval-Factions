@@ -36,4 +36,9 @@ public class Quest {
 		return null;
 	}
 	
+	public Quest(Main plugin)
+	{
+		main = plugin;
+	}
+	
 }
