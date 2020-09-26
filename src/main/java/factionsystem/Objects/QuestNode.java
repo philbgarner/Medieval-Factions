@@ -12,7 +12,9 @@ public class QuestNode {
 	public String name = "";
 	public String description = "";
 	public QuestNode parentNode = null;
+	public QuestNode nextNode = null;
 	public ArrayList<QuestNodeCondition> conditions = new ArrayList<QuestNodeCondition>();
+	public ArrayList<QuestNodeGoalReward> reward = new ArrayList<QuestNodeGoalReward>();
 	
 	public void ProcessNode(Player player)
 	{
@@ -27,11 +29,10 @@ public class QuestNode {
 			{
 				result = result || condition.Evaluate(player);
 			}
-			
-			if (result)
-			{
-				player.sendMessage(ChatColor.GREEN + "You have completed " + name + ", now starting " + condition.nextNode.name);
-			}
+		}
+		if (result)
+		{
+			player.sendMessage(ChatColor.GREEN + "You have completed " + name + ", now starting " + nextNode.name);
 		}
 	}
 	
