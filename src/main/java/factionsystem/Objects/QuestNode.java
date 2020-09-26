@@ -17,9 +17,20 @@ public class QuestNode {
 	public QuestNode nextNode = null;
 	public ArrayList<QuestNodeCondition> conditions = new ArrayList<QuestNodeCondition>();
 	public ArrayList<QuestNodeAction> actions = new ArrayList<QuestNodeAction>();
+	public ArrayList<QuestNodeAction> startActions = new ArrayList<QuestNodeAction>();
 	
 	private Main main;
 	
+	// Execute actions for when the node first becomes active.
+	public void StartNode(Player player)
+	{
+		for (QuestNodeAction action : actions)
+		{
+			action.Execute(player);
+		}
+	}
+	
+	// Check pass conditions and execute node actions if they do.
 	public boolean ProcessNode(Player player)
 	{
 		boolean result = false;
@@ -46,6 +57,10 @@ public class QuestNode {
 				}
 				player.sendMessage(ChatColor.GREEN + "You have completed " + name + ", now starting " + nextNode.name);
 				rec.activeQuestNode.add(nextNode.uuid);
+				for (QuestNodeAction action : nextNode.startActions)
+				{
+					action.Execute(player);
+				}
 				return true;
 			}
 			else
