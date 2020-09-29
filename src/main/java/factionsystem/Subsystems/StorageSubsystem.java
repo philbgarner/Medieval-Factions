@@ -8,8 +8,10 @@ import factionsystem.Main;
 import factionsystem.Objects.ClaimedChunk;
 import factionsystem.Objects.Faction;
 import factionsystem.Objects.LockedBlock;
+import factionsystem.Objects.NPCConversation;
 import factionsystem.Objects.PlayerActivityRecord;
 import factionsystem.Objects.PlayerPowerRecord;
+import factionsystem.Objects.NPCConversation.DialogSpeechJson;
 
 import java.io.*;
 import java.lang.reflect.Type;
@@ -29,6 +31,7 @@ public class StorageSubsystem {
     private final static String PLAYERPOWER_FILE_NAME = "playerpowerrecords.json";
     private final static String PLAYERACTIVITY_FILE_NAME = "playeractivityrecords.json";
     private final static String LOCKED_BLOCKS_FILE_NAME = "lockedblocks.json";
+    private final static String NPC_CONVERSATIONS_FILE_NAME = "npcconversations.json";
 
     private final static Type LIST_MAP_TYPE = new TypeToken<ArrayList<HashMap<String, String>>>(){}.getType();
 
@@ -126,6 +129,7 @@ public class StorageSubsystem {
             loadPlayerPowerRecords();
             loadPlayerActivityRecords();
             loadLockedBlocks();
+            //loadNPCs();
             System.out.println("Faction data loaded successfully");
         }
     }
@@ -151,6 +155,53 @@ public class StorageSubsystem {
         return directoryToBeDeleted.delete();
     }
 
+    private void loadQuests() {
+    	// TODO: Write quest loading code.
+    }
+    
+    private void loadNPCs() {
+    	main.npcs.clear();
+    	NPCConversation.DialogSpeechJson[] npcs;
+    	try
+    	{
+	    	JsonReader reader = new JsonReader(new FileReader(FILE_PATH + NPC_CONVERSATIONS_FILE_NAME));
+	    	
+	    	npcs = gson.fromJson(reader, NPCConversation.DialogSpeechJson[].class);
+	    	
+	    	System.out.println(npcs[0].responses.get(0).nextSpeech.text);
+    	}
+    	catch (Exception ex)
+    	{
+    		System.out.println("ERROR: Could not load file '" + NPC_CONVERSATIONS_FILE_NAME + "':\n" + ex.getMessage());
+    		return;
+    	}
+    	
+		for (DialogSpeechJson speech : npcs)
+		{
+			main.npcs.add(new NPCConversation(speech, main));
+		}
+
+    }
+    
+    
+    public NPCConversation loadConversation(String conversationId) {
+    	NPCConversation.DialogSpeechJson conversation;
+    	try
+    	{
+	    	JsonReader reader = new JsonReader(new FileReader(FILE_PATH + conversationId + ".json"));
+	    	
+	    	conversation = gson.fromJson(reader, NPCConversation.DialogSpeechJson.class);
+    	}
+    	catch (Exception ex)
+    	{
+    		System.out.println("ERROR: Could not load file '" + NPC_CONVERSATIONS_FILE_NAME + "':\n" + ex.getMessage());
+    		return null;
+    	}
+    	
+		return new NPCConversation(conversation, main);
+		
+    }
+    
     private void loadFactions() {
         main.factions.clear();
 

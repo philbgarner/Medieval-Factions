@@ -6,6 +6,7 @@ import factionsystem.Objects.Duel;
 import factionsystem.Objects.Faction;
 import factionsystem.Objects.Gate;
 import factionsystem.Objects.LockedBlock;
+import factionsystem.Objects.NPCConversation;
 import factionsystem.Objects.PlayerActivityRecord;
 import factionsystem.Objects.PlayerPowerRecord;
 import factionsystem.Subsystems.CommandSubsystem;
@@ -50,9 +51,11 @@ public class Main extends JavaPlugin implements Listener {
     public ArrayList<PlayerPowerRecord> playerPowerRecords = new ArrayList<>();
     public ArrayList<PlayerActivityRecord> playerActivityRecords = new ArrayList<>();
     public ArrayList<LockedBlock> lockedBlocks = new ArrayList<>();
-    public ArrayList<Duel> duelingPlayers = new ArrayList<Duel>();
+    public ArrayList<NPCConversation> npcs = new ArrayList<>();
 
     // temporary lists
+    public HashMap<UUID, NPCConversation> npcPlayerConversations = new HashMap<>();
+    public ArrayList<Duel> duelingPlayers = new ArrayList<Duel>();
     public HashMap<UUID, Gate> creatingGatePlayers = new HashMap<>(); 
     public ArrayList<UUID> lockingPlayers = new ArrayList<>();
     public ArrayList<UUID> unlockingPlayers = new ArrayList<>();

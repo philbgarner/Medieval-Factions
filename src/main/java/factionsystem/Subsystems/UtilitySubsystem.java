@@ -6,6 +6,7 @@ import factionsystem.Objects.Duel;
 import factionsystem.Objects.Faction;
 import factionsystem.Objects.Gate;
 import factionsystem.Objects.LockedBlock;
+import factionsystem.Objects.NPCConversation;
 import factionsystem.Objects.PlayerActivityRecord;
 import factionsystem.Objects.PlayerPowerRecord;
 import factionsystem.Util.Pair;
@@ -32,7 +33,7 @@ public class UtilitySubsystem {
     }
 
     // non-static methods
-    
+        
     public ClaimedChunk isChunkClaimed(double x, double y, String world)
     {
     	for (ClaimedChunk chunk : main.claimedChunks)
@@ -546,6 +547,16 @@ public class UtilitySubsystem {
     }
 
     // static methods ----------------------------
+    
+    public static boolean isConversing(Player player, Main main)
+    {
+    	return main.npcPlayerConversations.containsKey(player.getUniqueId());
+    }
+    
+    public static NPCConversation getConversation(Player player, Main main)
+    {
+    	return main.npcPlayerConversations.get(player.getUniqueId());
+    }
     
     public static boolean isDuelling(Player player, Main main)
     {
